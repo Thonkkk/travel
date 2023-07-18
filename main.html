@@ -41,7 +41,7 @@
     <input type="number" id="duration" min="2" max="10" value="5">
     
     <label for="origin">Flight Origin:</label>
-    <input type="text" id="origin" placeholder="Enter origin airport or country">
+    <input type="text" id="origin" placeholder="Enter origin airport or country" oninput="updateHotels()">
     
     <label for="destination">Flight Destination:</label>
     <input type="text" id="destination" placeholder="Enter destination airport">
@@ -267,6 +267,16 @@
         return a.code === code;
       });
       return airport ? airport.country : "";
+    }
+    
+    // Function to update hotels when the flight origin is set
+    function updateHotels() {
+      var origin = document.getElementById("origin").value.toUpperCase();
+      var filteredHotels = hotels.filter(function(hotel) {
+        return originMatches(hotel.flightFrom, origin);
+      });
+      
+      displayResults(filteredHotels);
     }
     
     // Autocomplete for origin and destination inputs
